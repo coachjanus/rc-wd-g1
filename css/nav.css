@@ -15,4 +15,17 @@
 .nav-item a {
             color: white;
             text-decoration: none;
+            /* font-size: 1in; */
+        }
+
+.sub-nav {
+            background-color: var(--secondary-color);
+            background-image: url('/images/clock-demo-400px.png');
+            background-repeat: no-repeat;
+            background-position: right center;
+            background-size: 70px auto;
+            background-attachment: fixed;
+            color: white;
+            padding: 5px;
+            border-bottom: 2px solid hsla(0, 0%, 0%, 0.5);
         }
