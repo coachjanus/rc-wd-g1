@@ -1,5 +1,5 @@
 .navbar {
-            background-color: var(--primary-color);
+            background-color: var(--bgColor);
             color: white;
             padding: 10px;
     }
@@ -9,14 +9,18 @@
             padding: 0;
         }
 .nav-item {
-            display: inline;
-            margin-right: 10px;
-        }
+    display: inline;
+    margin-right: 10px;
+}
 .nav-item a {
-            color: white;
-            text-decoration: none;
-            /* font-size: 1in; */
-        }
+        color: white;
+        text-decoration: none;
+}
+
+.nav-item a:hover {
+    color: var(--accentColor);
+    text-decoration: underline;
+}
 
 .sub-nav {
             background-color: var(--secondary-color);

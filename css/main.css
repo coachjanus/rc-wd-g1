@@ -1,7 +1,14 @@
-
+:root {
+        scroll-behavior: smooth;
+        --linkColor : rgba(9, 89, 9, .7);
+        --navColor : hsl(0, 0%, 90%);
+        --textColor : hsl(0, 0%, 25%);
+        --muteColor : hsl(0, 0%, 95%);
+        --bgColor: hsl(0, 0%, 22%);
+        --accentColor : hsl(300, 50%, 50%);
+    }
 
 body {
-        /* font-family: Arial, sans-serif; */
         font-family: "Roboto", sans-serif;
         font-optical-sizing: auto;
         font-weight: 400;
@@ -11,13 +18,40 @@ body {
         font-variation-settings: "wdth" 100;
         margin: 0;
         padding: 0;
+        max-width: 100%;
+        box-sizing: border-box;
         --primary-color: rgb(0 123 255 / 0.5);
         --secondary-color: rgb(223 223 223 / 0.5);
     }
 .main {
-            padding: 20px;
-        }
+        padding: 20px;
+}
 
 h1 {
  font-size: calc(1.45rem + 1.14vw);
+}
+
+.bg-cover {
+    background-color : antiquewhite ;
+    background-size : cover;
+}
+.bg-center {
+    background-position:top 700;
+}
+.bg-attachment {
+    background-attachment : fixed;
+}
+.py-4 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.py-8 {
+    padding-top: 4rem;
+    padding-bottom: 6rem;
+}
+
+.px-4 {
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
