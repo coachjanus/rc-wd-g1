@@ -8,12 +8,15 @@
     min-height: 100vh;
     padding: 20px;
     line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .login-container {
     max-width: 420px;
     width: 100%;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     background: #fff;
     padding: 30px;
     border-radius: 12px;
@@ -35,6 +38,8 @@
 
 .input-wrapper {
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .input-wrapper input {
@@ -103,4 +108,13 @@
     margin: 24px 0;
     text-align: center;
     position: relative;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
 }
