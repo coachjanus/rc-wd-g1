@@ -1,0 +1,52 @@
+:root {
+  --grid-gap: 10px;
+  --grid-columns: 5;
+  --grid-rows: 3;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+.box1 {
+  background-color: #f00;
+}
+.box2 {
+  background-color: #0f0;
+}
+.box3 {
+  background-color: #00f;
+}
+.box4 {
+  background-color: #FFFF00;
+}
+.box5 {
+  background-color: #ff00ff;
+}
+.box6 {
+  background-color: #00ffff;
+}
+.box7 {
+  background-color: #909090;
+}   
+
+.grid-item {
+
+  padding: 50px;
+  border: 1px solid #ccc;
+  text-align: center;
+  font-size: 50px;
+  color: #fff;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr minmax(250px, 1fr) 1fr;
+  /* grid-template-columns: repeat(var(--grid-columns), 1fr); */
+  /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+  /* grid-template-columns: 1fr 25% 14vw 200px 1fr; */
+  /* grid-template-columns: repeat(var(--grid-columns), 1fr); */
+  /* grid-template-columns: repeat(var(--grid-columns), 1fr);
+  grid-template-rows: repeat(var(--grid-rows), 1fr);
+  gap: var(--grid-gap); */
+}
+

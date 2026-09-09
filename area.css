@@ -1,0 +1,38 @@
+
+.area-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas: "nav nav nav nav"
+                       "aside main main main"
+                       "footer footer footer footer";
+}
+nav {
+    background-color: red;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    grid-area: nav;
+}
+
+footer {
+    background-color: blue;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    grid-area: footer;
+}
+
+main {
+    background-color: #f0f0f0;
+    padding: 20px;
+    min-height: 400px;
+    grid-area: main;
+} 
+
+aside {
+    background-color: green;
+    padding: 20px;
+    min-height: 400px;
+    grid-area: aside;
+}
