@@ -1,13 +1,27 @@
 .navbar {
             background-color: var(--bgColor);
             color: white;
-            padding: 10px;
+            padding: 10px;  
     }
+
 .nav-links {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* На мобільних пристроях по вертикалі */
+    gap: 10px;
+    }
+
+    @media (min-width: 768px) {
+    .nav-links {
+    display: flex;
+    flex-direction: row; /* На планшетах/ПК по горизонталі */
+    justify-content: end;
+    }
+    }
+
+
 .nav-item {
     display: inline;
     margin-right: 10px;

@@ -1,0 +1,124 @@
+/* --- НАВІГАЦІЯ (Мобільна версія: посилання одне під одним) --- */
+.site-header {
+    background-color: #ffffff;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    /* Елементи шикуються у стовпчик */
+    gap: 15px;
+    align-items: center;
+}
+
+.logo {
+    /* font-size: 1.5rem; */
+    font-size: clamp(1.375rem, 1.5vw + 1rem, 2rem);
+    font-weight: bold;
+    color: #0070f3;
+}
+
+
+.card-body h3 {
+    /* Плавно змінюється від ~18px до ~24px */
+    font-size: clamp(1.125rem, 1vw + 0.9rem, 1.5rem);
+    margin-bottom: 10px;
+}
+
+.main-nav {
+    display: flex;
+    flex-direction: column;
+    /* Посилання меню йдуть одне під одним */
+    gap: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: #fcf4f4;
+    padding: 8px;
+    background-color: #4d0303;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+
+/* --- СІТКА КАРТОК (Мобільна версія: 1 картка в ряд) --- */
+.content-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    /* min-width: 280px; */
+    width: 100%;
+
+}
+
+.cards-grid {
+    display: grid;
+    /* auto-fit + minmax роблять магію: якщо екран зовсім малий,
+ картка займе 100% ширини, але не стане меншою за 280px */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 8px;
+    min-width: 200px;
+    overflow: hidden;
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+img,
+video {
+    max-width: 100%;
+    height: auto;
+    /* Зберігає пропорції */
+    display: block;
+}
+
+.card-image {
+    /* height: 200px; */
+
+    background-color: #ddd;
+    /* Заглушка замість картинки */
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-body h3 {
+    margin-bottom: 10px;
+}
+
+@media screen and (min-width: 768px) {
+    .site-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .main-nav {
+        flex-direction: row;
+        gap: 20px;
+        width: auto;
+    }
+
+    /* --- СІТКА КАРТОК (Мобільна версія: 1 картка в ряд) --- */
+    .content-container {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+
+    }
+
+    .cards-grid {
+        display: grid;
+        /* auto-fit + minmax роблять магію: якщо екран зовсім малий,
+ картка займе 100% ширини, але не стане меншою за 280px */
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+}
