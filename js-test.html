@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        console.log("Hello, function!");
+        console.log(square(5)); // Output: 25
+
+        function square(number) {
+            return number * number;
+        }
+        let message = "Hello World!";
+
+        // function greet(name, text = "Welcome") {
+        //     // let message = `${text}, ${name}!`;
+        //     message = `${text}, ${name}!`;
+        //     return message;
+        // } 
+        function greet(name, text) {
+            let message = `${text}, ${name}!`;
+            return message;
+        }
+
+        // console.log(message); // Output: Welcome, Alice!
+
+        // console.log(greet("Alice")); // Outpucont: Welcome, Alice!
+
+        // function pow(x, n) {
+        //     if (n == 1) {
+        //         return x;
+        //     } else {
+        //         return x * pow(x, n - 1);
+        //     }
+        // }
+        function pow(x, n) {
+            return (n == 1) ? x : (x * pow(x, n - 1));
+        }
+        console.log(pow(2, 100)); // Output: 1024
+
+
+        function fibo(n) {
+            // Базовий випадок
+            if (n <= 1) {
+                return n;
+            }
+            // Рекурсивний виклик
+            return fibo(n - 1) + fibo(n - 2);
+        }
+        console.log(fibo(10)); // Виведе: 8 (послідовність: 0, 1, 1, 2, 3, 5, 8)
+
+        function fib(n) {
+            return n <= 1 ? n : fib(n - 1) + fib(n - 2);
+        }
+        function getFibonacciSequence(length) {
+            const result = [];
+            for (let i = 0; i < length; i++) {
+                result.push(fib(i));
+            }
+            return result;
+        }
+        console.log(getFibonacciSequence(7)); // Виведе: [0, 1, 1, 2, 3, 5, 8]
+    </script>
+</body>
+
+</html>
