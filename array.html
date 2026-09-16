@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // let empty = [];
+        let empty = new Array();
+        // console.log("Array empty = ", empty);
+        empty[0] = 1;
+        empty[1] = 2;
+        empty[20] = true;
+        console.log("Array empty.length = ", empty.length);
+        console.log("Array empty[10] = ", empty[10]);
+        console.log("Type of empty = ", typeof empty);
+
+        empty.fill(7, 0, 19);
+        console.log("Array empty = ", empty);
+        console.log("Array empty[10] = ", empty[10]);
+
+        let numbers = new Array(100,);
+        console.log("Array numbers = ", numbers);
+        numbers.fill(8);
+        console.log("Array numbers = ", numbers);
+        console.log("Array numbers.length-10 = ", numbers.length - 10);
+
+        let arr = [1, 2, 3, 4, function (name) { console.log("Hello, " + name); }, true, "string"];
+        console.log(arr);
+        console.log(arr[4]("Alice"));
+        console.log(arr[5]);
+        console.log(arr[6]);
+        console.log(arr.at(-4));
+
+        let arr2 = new Array(11, 22, [33, 44, 55], 66);
+        console.log(arr2);
+
+        console.log(arr2[2][1]);
+        console.log(arr2.flat());
+        let flatArr = arr2.flat();
+
+        let i = 0;
+        while (i < 4) {
+            // console.log(flatArr.pop());
+            console.log(flatArr[i]);
+            i++; // i = i + 1
+        }
+
+        for (var j = 5; j < 10; j = j + 1) {
+            console.log(j);
+        }
+
+        // let sum = 0;
+        // while (true) {
+        //     let value = +prompt("Введіть число", '');
+        //     if (!value) break; // (*)
+        //     sum += value;
+        // }
+        // alert('Сума: ' + sum);
+
+        while (flatArr.length > 0) {
+            console.log(`Popped element ${flatArr.length}: ${flatArr.pop()}`);
+        }
+
+        arr.push(678);
+        console.log(arr);
+        arr.pop();
+        console.log(arr);
+        arr.shift();
+        console.log(arr);
+        arr.unshift(100);
+        console.log(arr);
+        console.log(arr.includes(100));
+        console.log(arr.indexOf(true));
+    </script>
+</body>
+
+</html>
