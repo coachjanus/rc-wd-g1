@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const obj = {
+            name: "John",
+            age: 30,
+            city: "New York"
+        };
+
+        console.log(obj.name); // Output the object to the console
+        console.log(obj.age); // Output the object to the console
+        console.log(obj.city); // Output the object to the console
+
+        // Convert the object to a JSON string
+        // const jsonString = JSON.stringify(obj);
+
+        // Display the JSON string in the console
+        // console.log(jsonString);
+
+        let adress = {
+            street: "123 Main St",
+            city: "New York",
+            state: "NY",
+            zip: "10001"
+        };
+
+        console.log(adress.street); // Output the address to the console
+        console.log(adress.city); // Output the address to the console
+        console.log(adress.state); // Output the address to the console
+        console.log(adress.zip); // Output the address to the console
+
+        let obj1 = {};
+        console.log(typeof obj1);
+        obj1.age = 33;
+        console.dir(obj1);
+
+        let o = Object.create({p:{value:123}});
+        console.dir(o);
+
+        o.name = "My object";
+        console.dir(o);
+
+        o.adress = {
+            city: "My City",
+            str: "123, New Str",
+
+        };
+        o["zip code"] = 123456;
+        console.dir(o);
+
+        const contact1 = {
+            name: "mary Ann",
+            phone: 1234567,
+            address: {
+                city: 'Kyiv',
+                country: "Ukraine"
+
+            }
+        }
+
+        console.log(contact1.address.city);
+
+        function contact(first_name, last_name, phone) {
+            let o = {
+                // info:function(first_name, last_name) {
+                //     return `This is contact information about ${first_name} ${last_name}`;
+                // }
+                info(first_name, last_name) {
+                    return `This is contact information about ${first_name} ${last_name}`;
+                }
+            };
+            o.first_name = first_name;
+            o.laast_name = last_name;
+            o.phone = phone;
+            
+            return o;
+        }
+        let contacts = [];
+        let tom = contact('Tom', "Cat", 1234567);
+
+        contacts.push(tom);
+        let maery = contact("Mary", "Ann", 77777777);
+        console.log(maery.info(maery.first_name, maery.laast_name));
+
+        console.log(Object.entries(maery));
+        console.log(Object.keys(maery));
+        console.log(Object.values(maery));
+        contacts.push(maery);
+
+        console.log(contacts);
+
+        function address_info(street='13/25 New Avenue', city='Kyiv', zip='001 001', country='Ukraine'){
+            let address = {
+                street: street,
+                city: city,
+                zip: zip,
+                country: country,
+                our_address (){
+                    return `Our address: ${this.street}, ${this.city}, ${this.country}`;
+                }
+            }
+            return address;
+        }
+
+        let my_obj = address_info();
+        console.log(my_obj.our_address());
+        
+
+    </script>
+</body>
+</html>
