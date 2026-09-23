@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="tabs.css">
+</head>
+
+<body>
+    <div class="tabs-container">
+        <!-- Кнопки керування вкладками -->
+        <div class="tabs-buttons">
+            <button class="tab-btn active" data-tab="tab-1">Програмування</button>
+            <button class="tab-btn" data-tab="tab-2">Дизайн</button>
+            <button class="tab-btn" data-tab="tab-3">Маркетинг</button>
+            <button class="tab-btn" data-tab="tab-4">Contacts</button>
+        </div>
+        <!-- Контент вкладок -->
+        <div class="tabs-content">
+            <div id="tab-1" class="tab-content-item active">
+                <h2>Курси Програмування</h2>
+                <p>Вивчайте JavaScript, Python та побудову сучасних вебдодатків.</p>
+            </div>
+            <div id="tab-2" class="tab-content-item">
+                <h2>Курси Дизайну</h2>
+                <p>Опануйте UI/UX дизайн, роботу з Figma та створення інтерфейсів.</p>
+            </div>
+            <div id="tab-3" class="tab-content-item">
+                <h2>Курси Маркетингу</h2>
+                <p>Навчіться налаштовувати таргетинг, SEO та просувати бренди.</p>
+            </div>
+            <div id="tab-4" class="tab-content-item">
+                <h2>Contact us</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur enim ut ullam cupiditate animi accusantium nisi. Illum labore voluptatum doloremque? Excepturi ipsum unde reprehenderit ducimus. Vero commodi quos reprehenderit nisi!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContentItems = document.querySelectorAll('.tab-content-item');
+        // console.log(tabButtons);
+        // console.log(tabContentItems);
+
+        tabButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContentItems.forEach(content => content.classList.remove('active'));
+                button.classList.add('active');
+                const targetTabId = button.getAttribute('data-tab');
+                // Знаходимо блок із відповідним ID та додаємо йому active
+                const targetContent = document.getElementById(targetTabId);
+                targetContent.classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

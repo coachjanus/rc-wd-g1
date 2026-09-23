@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    
+    <button class="my-btn">Click me</button>
+    
+    <script>
+
+        function main() {
+            console.log("DOM Content Loaded");
+            let myBtn = document.querySelector(".my-btn");
+            myBtn.addEventListener("click", function(e) {
+                console.log(e.target);
+                console.log(e.type);
+                console.log(this);
+            });
+        }
+
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", main);
+        } else {
+            main();
+        }
+    </script>
+</body>
+
+</html>

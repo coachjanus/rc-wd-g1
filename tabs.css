@@ -1,0 +1,16 @@
+/* Приховуємо всі блоки з контентом за замовчуванням */
+.tab-content-item {
+    display: none;
+}
+
+/* Показуємо лише той блок, який має клас active */
+.tab-content-item.active {
+    display: block;
+}
+
+/* Стиль для активної кнопки, щоб користувач бачив, де він перебуває */
+.tab-btn.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
