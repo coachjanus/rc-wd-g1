@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            /* width:3000px;
+            height: 1000px; */
+        }
+
+        .container {
+            /* position: absolute;
+            top: 900px;
+            left:400px;
+            width: 900px;
+            height: 500px;
+            background-color: blueviolet; */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 id="hell">Hello JavaScript!</h1>
+    </div>
+
+    <h1 id="main-title">Привіт, Світе!</h1>
+    <button id="change-btn" onclick="doit()">Змінити заголовок</button>
+
+    <script>
+        console.log(window.innerWidth, window.innerHeight);
+        // window.scrollBy(500, 200);
+        // window.scrollTo({ top: 0, behavior: 'smooth' }) ;
+
+        // Запуск таймера
+        // const timerId = window.setTimeout(() => {
+        // console.log("Минуло 3 секунди!");
+        // }, 3000);
+        // Скасування таймера за потреби
+        // window.clearTimeout(timerId)
+
+
+        let hello = document.getElementById('hell')
+        console.dir(hello);
+
+        let div = document.querySelector('div');
+        console.log(div);
+
+        div.style.backgroundColor = "red"; // background-color
+        div.style.color = "white";
+
+        // document.querySelector('h1').innerHTML = "<i>Hello World!</i>";
+        // hell.innerHTML = "<i>Hello Me!</i>";
+        // document.querySelector('#hell').innerHTML = "<i>Hello ID!</i>";
+        // document.querySelectorAll('h1')[0].innerHTML = "<i>Hello h1!</i>";
+        document.getElementsByTagName('h1')[0].innerHTML = "<i>Hello tag name!</i>";
+
+        function doit() {
+            // 1. Пошук елементів на сторінці
+            const title = document.getElementById('main-title');
+            const button = document.getElementById('change-btn');
+            // 2. Зміна текстового вмісту елемента title
+            title.textContent = 'Текст успішно змінено через DOM!';
+            // 3. Зміна стилів елемента title (робимо колір зеленим)
+            title.style.color = '#27ae60';
+            // 4. Зміна стилів елемента button
+            button.style.backgroundColor = "red";
+            button.style.color = "white";
+            // 5. Зміна текстового вмісту елемента button
+            button.textContent = "All done!";
+        };
+    </script>
+
+</body>
+
+</html>
