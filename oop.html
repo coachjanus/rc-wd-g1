@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class User {
+            constructor(username) {
+                this.username = username;
+            }
+
+            sayHello() {
+                return this.username;
+            }
+        }
+        let user1 = new User("Tom Cat");
+        console.log(`Hello ${user1.sayHello()}!`);
+
+        let user2 = new User("John Dou");
+        console.log(`Hello ${user2.sayHello()}!`);
+
+        console.log(typeof User);
+
+        class Animal {
+            constructor(name) {
+                this.speed = 0;
+                this.name = name;
+            }
+            run(speed) {
+                this.speed = speed;
+                console.log(`${this.name} біжить зі швидкістю ${this.speed}.`);
+            }
+            stop() {
+                this.speed = 0;
+                console.log(`${this.name} стоїть.`);
+            }
+        }
+        let animal = new Animal("Моя тварина");
+
+        console.log(animal);
+
+        class Rabbit extends Animal {
+            constructor(name, earLength) {
+                super(name);
+                this.earLength = earLength;
+            }
+
+            hide() {
+                console.log(`${this.name} ховається!`);
+            }
+            stop() {
+                super.stop();
+                this.hide();
+            }
+        }
+
+        // let rabbit = new Rabbit("Білий Кролик");
+        let rabbit = new Rabbit("Білий Кролик", 12);
+        rabbit.run(5); // Білий Кролик біжить зі швидкістю 5.
+        rabbit.stop();
+        // rabbit.hide(); // Білий Кролик ховається!
+
+        console.log(rabbit.earLength);
+
+
+    </script>
+</body>
+
+</html>
