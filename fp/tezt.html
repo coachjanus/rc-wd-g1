@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FP</title>
+</head>
+
+<body>
+    <script>
+        let value = 1;
+        doSomething(() => {
+            value = 2;
+        });
+
+        // Synchronous
+        // function doSomething(callback) {
+        //     callback(); // 2
+        // }
+        // Asynchronous
+        function doSomething(callback) {
+            setTimeout(callback, 0); // 1
+        }
+        console.log(value); // 1 or 2?
+
+        function operateOnArray(arr, callback) {
+            const result = [];
+            for (let i = 0; i < arr.length; i++) {
+                result.push(callback(arr[i]));
+            }
+            return result;
+        }
+        const numbers = [1, 2, 3];
+        const doubled = operateOnArray(numbers, num => num * 2);
+        console.log(doubled);// [2, 4, 6]
+
+        // Функція вищого порядку повертає функцію:
+        function createMultiplier(multiplier) {
+            return function (number) {
+                return number * multiplier;
+            };
+        }
+        const double = createMultiplier(2);
+        console.log(double(300));
+    </script>
+</body>
+
+</html>

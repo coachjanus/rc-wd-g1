@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog</title>
+    <link rel="stylesheet" href="catalog.css">
+</head>
+
+<body>
+    <!-- Бокова панель з чекбоксами -->
+    <aside class="sidebar">
+        <!-- Пошук за назвою -->
+        <div class="filter-group">
+            <h3>Пошук</h3>
+            <input type="text" id="searchInput" class="search-input" placeholder="Введіть назву...">
+        </div>
+        <!-- Фільтр за категоріями -->
+        <div class="filter-group">
+            <h3>Категорії</h3>
+            <label><input type="checkbox" value="Електроніка" class="category-checkbox">
+                Електроніка</label>
+            <label><input type="checkbox" value="Одяг" class="category-checkbox"> Одяг</label>
+            <label><input type="checkbox" value="Книги" class="category-checkbox"> Книги</label>
+        </div>
+        <!-- Фільтр за ціною -->
+        <div class="filter-group">
+            <h3>Ціна (грн)</h3>
+            <div class="price-inputs">
+                <input type="number" id="priceMin" placeholder="Від" min="0">
+                <input type="number" id="priceMax" placeholder="До" min="0">
+            </div>
+        </div>
+        <!-- Сортування -->
+        <div class="filter-group">
+            <h3>Сортування</h3>
+            <select id="sortSelect" class="sort-select">
+                <option value="default">За замовчуванням</option>
+                <option value="price-asc">Від дешевих до дорогих</option>
+                <option value="price-desc">Від дорогих до дешевих</option>
+                <option value="name-asc">За назвою (А-Я)</option>
+            </select>
+        </div>
+    </aside>
+    <!-- Контейнер для виведення результатів -->
+    <main class="content">
+        <h2>Товари</h2>
+        <div id="productsContainer" class="products-list"></div>
+    </main>
+    <script src="catalog.js"></script>
+</body>
+
+</html>

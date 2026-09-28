@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories</title>
+    <link rel="stylesheet" href="products.css">
+</head>
+
+<body>
+    <!-- Бокова панель з чекбоксами -->
+    <aside class="sidebar">
+        <h3>Категорії</h3>
+        <div class="checkbox-group">
+            <label><input type="checkbox" value="Електроніка" class="category-checkbox">
+                Електроніка</label>
+            <label><input type="checkbox" value="Одяг" class="category-checkbox"> Одяг</label>
+            <label><input type="checkbox" value="Книги" class="category-checkbox"> Книги</label>
+        </div>
+    </aside>
+    <!-- Контейнер для виведення результатів -->
+    <main class="content">
+        <h2>Товари</h2>
+        <div id="productsContainer" class="products-list"></div>
+    </main>
+    <script src="products.js"></script>
+</body>
+
+</html>
