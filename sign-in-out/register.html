@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+    <style>
+        /* Стилізація фону модального вікна (оверлей) */
+        dialog::backdrop {
+            background-color: rgba(0,
+                    0,
+                    0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        /* Контейнер діалогового вікна */
+        dialog {
+            border: none;
+            border-radius: 8px;
+            padding: 24px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow:
+                0 4px 12px rgba(0,
+                    0,
+                    0, 0.15);
+        }
+
+        /* Шапка модального вікна */
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            margin:
+                0;
+            font-size: 1.5rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            line-height:
+                1;
+        }
+
+        /* Елементи форми */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Кнопка відправки */
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Стиль для полів та кнопок,
+        коли вони в фокусі */ 
+        .form-group input:focus,
+        .submit-btn:focus,
+        .close-btn:focus,
+        .toggle-password:focus {
+            outline: 2px solid #007bff;
+            outline-offset: 2px;
+            border-color: transparent;
+        }
+
+        /* Якщо користувач клікає мишкою, outline можна приховати (опціонально) */
+        .form-group input:focus:not(:focus-visible),
+        .submit-btn:focus:not(:focus-visible) {
+            outline: none;
+            border-color: #007bff;
+            /* залишаємо тільки кольоровий бордер для мишки */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Кнопка для виклику вікна -->
+    <button id="openModalBtn">Зареєструватися</button>
+    <!-- Модальне вікно -->
+    <dialog id="regModal">
+        <div class="modal-header">
+            <h2>Реєстрація</h2>
+            <button id="closeModalBtn" class="close-btn">&times;</button>
+        </div>
+        <form id="regForm">
+            <div class="form-group">
+                <label for="username">Ім'я користувача:</label>
+                <input type="text" id="username" name="username" required minlength="3" autofocus>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" required minlength="6">
+            </div>
+            <button type="submit" class="submit-btn">Створити акаунт</button>
+        </form>
+
+    </dialog>
+</body>
+
+<script>
+
+    // Отримуємо посилання на необхідні DOM-елементи
+    const modal = document.getElementById('regModal');
+    const openBtn = document.getElementById('openModalBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const form = document.getElementById('regForm');
+
+    // Відкриття модального вікна за допомогою вбудованого методу showModal()
+    openBtn.addEventListener('click', () => {
+        modal.showModal();
+    });
+    // Закриття вікна при натисканні на кнопку "хрестик"
+    closeBtn.addEventListener('click', () => {
+        modal.close();
+    });
+    // Закриття вікна при кліку на область поза формою (на ::backdrop)
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.close();
+        }
+    });
+
+    // Обробка відправки форми реєстрації
+    form.addEventListener('submit', (event) => {
+        event.preventDefault(); // Запобігаємо стандартному перезавантаженню сторінки
+        // Отримуємо дані з полів форми
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        console.log('Дані реєстрації надіслано:', data);
+        // Імітація успішного запиту: очищуємо форму та закриваємо модалку
+        alert(`Користувач ${data.username} успішно зареєстрований!`);
+        form.reset();
+        modal.close();
+    })
+</script>
+
+
+
+</html>

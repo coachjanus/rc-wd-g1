@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+    <style>
+        /* Стилізація фону модального вікна (оверлей) */
+        dialog::backdrop {
+            background-color: rgba(0,
+                    0,
+                    0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        /* Контейнер діалогового вікна */
+        dialog {
+            border: none;
+            border-radius: 8px;
+            padding: 24px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow:
+                0 4px 12px rgba(0,
+                    0,
+                    0, 0.15);
+        }
+
+        /* Шапка модального вікна */
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            margin:
+                0;
+            font-size: 1.5rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            line-height:
+                1;
+        }
+
+        /* Елементи форми */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Кнопка відправки */
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Стиль для полів та кнопок,
+        коли вони в фокусі */
+        .form-group input:focus,
+        .submit-btn:focus,
+        .close-btn:focus,
+        .toggle-password:focus {
+            outline: 2px solid #007bff;
+            outline-offset: 2px;
+            border-color: transparent;
+        }
+
+        /* Якщо користувач клікає мишкою, outline можна приховати (опціонально) */
+        .form-group input:focus:not(:focus-visible),
+        .submit-btn:focus:not(:focus-visible) {
+            outline: none;
+            border-color: #007bff;
+            /* залишаємо тільки кольоровий бордер для мишки */
+        }
+
+        .error-text {
+            color: #dc3545;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Опціонально: підсвічування поля червоним, якщо воно невалідне */
+        .form-group input:invalid:focus {
+            border-color: #dc3545;
+            outline-color: #dc3545;
+        }
+
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .password-wrapper input {
+            padding-right: 40px;
+            /* Залишаємо місце для іконки справа */
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding:
+                0;
+            line-height:
+                1;
+            user-select: none;
+            /* Щоб текст іконки не виділявся випадково */
+        }
+
+        /* Прибираємо стандартний синій контур при кліку на іконку */
+        .toggle-password:focus {
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Кнопка для виклику вікна -->
+    <button id="openModalBtn">Зареєструватися</button>
+    <!-- Модальне вікно -->
+    <dialog id="regModal">
+        <div class="modal-header">
+            <h2>Реєстрація</h2>
+            <button id="closeModalBtn" class="close-btn">&times;</button>
+        </div>
+        <form id="regForm">
+            <div class="form-group">
+                <label for="username">Ім'я користувача:</label>
+                <input type="text" id="username" name="username" required minlength="3" autofocus>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <div class="password-wrapper">
+                    <input type="password" id="password" name="password" required minlength="6">
+                    <button type="button" class="toggle-password" data-target="password" aria-label="Показати пароль">
+                        <!-- Іконка відкритого ока (за замовчуванням прихована) -->
+                        <svg class="eye-open hidden" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor"
+                            stroke-width="2" fill="none">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        <!-- Іконка закритого ока (показується першою) -->
+                        <svg class="eye-closed" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor"
+                            stroke-width="2" fill="none">
+                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45
+18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16
+3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"> </path>
+                            <line x1="1" y1="1" x2="23" y2="23"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <!-- НОВЕ: Поле підтвердження пароля -->
+            <div class="form-group">
+                <label for="confirmPassword">Підтвердіть пароль:</label>
+                <div class="password-wrapper">
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <button type="button" class="toggle-password" data-target="confirmPassword"
+                        aria-label="Показати підтвердження пароля"><svg class="eye-open hidden" viewBox="0 0 24 24"
+                            width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        <svg class="eye-closed" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor"
+                            stroke-width="2" fill="none">
+                            <path
+                                d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24">
+                            </path>
+                            <line x1="1" y1="1" x2="23" y2="23"></line>
+                        </svg></button>
+                </div>
+                <!-- Місце для виведення тексту помилки -->
+                <span id="passwordError" class="error-text"></span>
+                </d <button type="submit" class="submit-btn">Створити акаунт</button>
+        </form>
+
+    </dialog>
+</body>
+
+<script>
+
+    // Отримуємо посилання на необхідні DOM-елементи
+    const modal = document.getElementById('regModal');
+    const openBtn = document.getElementById('openModalBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const form = document.getElementById('regForm');
+
+    // Змінна для зберігання кнопки, яка викликала модальне вікно
+    let lastActiveElement;
+
+    // // Відкриття модального вікна за допомогою вбудованого методу showModal()
+    // openBtn.addEventListener('click', () => {
+    //     modal.showModal();
+    // });
+
+    // Відкриття модального вікна
+    openBtn.addEventListener('click', () => {
+        lastActiveElement = document.activeElement; // Запам'ятовуємо кнопку "Зареєструватися"
+        modal.showModal();
+        // Фокус автоматично впаде на інпут з атрибутом autofocus
+    })
+
+    // Функція для закриття з поверненням фокусу
+    function closeModalWindow() {
+        modal.close();
+        // Повертаємо фокус назад на кнопку, щоб користувач клавіатури не загубився на сторінці
+        if (lastActiveElement) {
+            lastActiveElement.focus();
+        }
+    }
+    // Замінюємо modal.close() у всіх обробниках на нашу функцію:
+    closeBtn.addEventListener('click', closeModalWindow);
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            closeModalWindow();
+        }
+    });
+
+
+    // Закриття вікна при натисканні на кнопку "хрестик"
+    // closeBtn.addEventListener('click', () => {
+    //     modal.close();
+    // });
+    // Закриття вікна при кліку на область поза формою (на ::backdrop)
+    // modal.addEventListener('click', (event) => {
+    //     if (event.target === modal) {
+    //         modal.close();
+    //     }
+    // });
+
+    // Обробка відправки форми реєстрації
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        // Запобігаємо стандартному перезавантаженню сторінки
+        // Отримуємо дані з полів форми
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        console.log('Дані реєстрації надіслано:', data);
+        // Імітація успішного запиту: очищуємо форму та закриваємо модалку
+        alert(`Користувач ${data.username} успішно зареєстрований!`);
+        form.reset();
+        closeModalWindow();
+        // modal.close();
+    });
+
+    // Отримуємо елементи паролів та блоку помилки
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const passwordError = document.getElementById('passwordError');
+
+    function validatePasswords() {
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        // Якщо поле підтвердження ще порожнє, не показуємо помилку завчасно
+        if (!confirmPassword) {
+            passwordError.textContent = '';
+            confirmPasswordInput.setCustomValidity('');
+            return;
+        }
+        if (password !== confirmPassword) {
+            passwordError.textContent = 'Паролі не збігаються!';
+            // Вбудований метод HTML5, який блокує submit форми та показує помилку браузера
+            confirmPasswordInput.setCustomValidity('Паролі повинні збігатися.');
+        } else {
+            passwordError.textContent = '';
+            // Очищаємо помилку, тепер форма валідна
+            confirmPasswordInput.setCustomValidity('');
+        }
+    }
+
+    // Запускаємо перевірку щоразу, коли користувач щось друкує в будь-якому з полів
+    passwordInput.addEventListener('input', validatePasswords);
+    confirmPasswordInput.addEventListener('input', validatePasswords);
+
+    document.querySelectorAll('.toggle-password').forEach(button => {
+        button.addEventListener('click', function () {
+            // Знаходимо потрібний інпут за допомогою id, вказаного в data-target
+            const targetId = this.getAttribute('data-target');
+            const passwordInput = document.getElementById(targetId);
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                this.textContent = '🙈'; // Змінюємо іконку на заплющені очі
+            } else {
+                passwordInput.type = 'password';
+                this.textContent = '👁️'; // Повертаємо відкриті очі
+            }
+        });
+    });
+</script>
+
+
+
+</html>
