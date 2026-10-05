@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        console.log("1. Початок");
+        setTimeout(function () {
+            console.log("2. Минуло 2 секунди у фоні");
+        }, 2000);
+        console.log("3. Кінець");
+
+        // Яким буде порядок виведення в консоль?
+        // Відповідь:
+        // 1. Синхронний старт
+        // 4. Синхронний кінець
+        // 3. Мікрозавдання (Promise)
+        // 2. Макрозавдання (setTimeout)
+        console.log('1. Синхронний старт');
+        setTimeout(() => {
+            console.log('2. Макрозавдання (setTimeout)');
+        },
+            0);
+        Promise.resolve().then(() => {
+            console.log('3. Мікрозавдання (Promise)');
+        });
+        console.log('4. Синхронний кінець');
+    </script>
+</body>
+
+</html>
