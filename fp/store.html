@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Store</title>
+    <link rel="stylesheet" href="store.css">
+</head>
+
+<body>
+    <!-- Бокова панель з чекбоксами -->
+    <aside class="sidebar">
+        <!-- Пошук за назвою -->
+        <div class="filter-group">
+            <h3>Пошук</h3>
+            <input type="text" id="searchInput" class="search-input" placeholder="Введіть назву...">
+        </div>
+        <!-- Фільтр за категоріями -->
+
+        <div class="filter-group">
+            <h3>Категорії</h3>
+            <label><input type="checkbox" value="beauty" class="category-checkbox"> Краса (beauty) <span
+                    class="count-badge" id="count-beauty">0</span></label>
+            <label><input type="checkbox" value="fragrances" class="category-checkbox"> Парфуми
+                (fragrances) <span class="count-badge" id="count-fragrances">0</span></label>
+            <label><input type="checkbox" value="groceries" class="category-checkbox"> Продукти
+                (groceries) <span class="count-badge" id="count-groceries">0</span></label>
+        </div>
+        <!-- Фільтр за ціною -->
+        <div class="filter-group">
+            <h3>Ціна (грн)</h3>
+            <div class="price-inputs">
+                <input type="number" id="priceMin" placeholder="Від" min="0">
+                <input type="number" id="priceMax" placeholder="До" min="0">
+            </div>
+        </div>
+        <!-- Сортування -->
+        <div class="filter-group">
+            <h3>Сортування</h3>
+            <select id="sortSelect" class="sort-select">
+                <option value="default">За замовчуванням</option>
+                <option value="price-asc">Від дешевих до дорогих</option>
+                <option value="price-desc">Від дорогих до дешевих</option>
+                <option value="name-asc">За назвою (А-Я)</option>
+            </select>
+        </div>
+        <button id="clearFiltersBtn" class="clear-btn">Очистити всі фільтри</button>
+    </aside>
+    <!-- Контейнер для виведення результатів -->
+    <main class="content">
+        <h2>Товари (<span id="totalProductsCount">0</span>)</h2>
+        <div id="productsContainer" class="products-list"></div>
+        <!-- Контейнер для кнопок сторінок -->
+        <div id="paginationContainer" class="pagination"></div>
+    </main>
+    <script src="store.js"></script>
+</body>
+
+</html>
