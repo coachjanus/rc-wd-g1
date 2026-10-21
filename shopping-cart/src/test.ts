@@ -1,53 +1,83 @@
-// class Point {
-//     x: number;
-//     // Property 'x' has no initializer and is not definitely assigned in the constructor.ts(2564)
-//     y: number;
-//     // Property 'y' has no initializer and is not definitely assigned in the constructor.ts(2564)
-//     constructor() {
-//         this.x = 0;
-//         this.y = 0;
-//     }
-// }
+class Album1 implements IAlbum {
+    // protected title: string;
+    title: string;
+    artist: string;
+    releaseYear: number;
+    trackList: string[];
 
-// const point = new Point();
-// // point.x = 10;
-// // point.y = 20;
+    constructor(opts: { title: string; artist: string; releaseYear: number, trackList: string[] }) {
+        this.title = opts.title;
+        this.artist = opts.artist;
+        this.releaseYear = opts.releaseYear;
+        this.trackList = opts.trackList;
+    }
+    displayInfo() {
+        console.log(`${this.title} by ${this.artist}, released in ${this.releaseYear}.`,);
+    }
+}
 
-// console.log(point.x, point.y);
+interface IAlbum {
+    title: string;
+    artist: string;
+    releaseYear: number;
+    trackList: string[];
+}
 
-// class Album {
-//     title;
-//     artist;
-//     releaseYear;
-//     // constructor() {
-//     //  this.title = "Loop Finding Jazz Records";
-//     //  this.artist = "Jan Jelinek";
-//     //  this.releaseYear = 2001;
-//     //  }
-//     // inside the Album class
-//     constructor(opts: { title: string; artist: string; releaseYear: number }) {
-//         this.title = opts.title;
-//         this.artist = opts.artist;
-//         this.releaseYear = opts.releaseYear;
-//     }
-// }
+class SpecialEditionAlbum extends Album1 {
+    // bonusTracks
+    // bonusTracks: string[];
 
-// const album = new Album({ title: "Loop Finding Jazz Records", artist: "Jan Jelinek", releaseYear: 2001 });
-// console.log(album.title, album.artist, album.releaseYear);
+    // constructor(opts: { title: string; artist: string; releaseYear: number, bonusTracks: string[] }) {
+    //     super(opts);
+    //     this.bonusTracks = opts.bonusTracks;
+    // }
 
+    getTitle() {
+        return this.title;
+    }
 
-// function printAlbumInfo(album: Album) {
-//     console.log(
-//         `${album.title} by ${album.artist}, released in ${album.releaseYear}.`,
-//     );
-// }
-// printAlbumInfo(album);
+    override displayInfo() {
+        console.log(
+            `${this.title} by ${this.artist}, released in ${this.releaseYear}.`,
+        );
+        // console.log(`Bonus tracks: ${this.bonusTracks.join(", ")}`);
+    }
+}
 
+const opts = {
+    title: "Plastic Ono Band",
+    artist: "John Lennon",
+    releaseYear: 2000,
+    bonusTracks: ["Power to the People", "Do the Oz"],
+};
 
-// /// Інтерфейси (Типи даних)
-// interface Product {
-//     id: number;
-//     name: string;
-//     category: string;
-//     price: number;
-// }
+// let specialEditionAlbum = new SpecialEditionAlbum(opts);
+
+abstract class AlbumBase {
+    title: string;
+    artist: string;
+    releaseYear: number;
+    trackList: string[] = [];
+    constructor(opts: { title: string; artist: string; releaseYear: number }) {
+        this.title = opts.title;
+        this.artist = opts.artist;
+        this.releaseYear = opts.releaseYear;
+    }
+    addTrack(track: string) {
+        this.trackList.push(track);
+    }
+
+    abstract addReview(author: string, review: string): void;
+}
+
+class Album extends AlbumBase {
+    addReview(author: string, review: string): void{
+        
+    };
+}
+
+const album = new Album({
+    title: "Unknown Album",
+    artist: "Unknown Artist",
+    releaseYear: 0,
+});

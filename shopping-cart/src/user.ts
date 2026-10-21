@@ -179,3 +179,140 @@ const userWithoutAge = new OPUser(2, "Марія");
 console.log(userWithAge.age); // Виведе: 25
 console.log(userWithoutAge.age); // Виведе: undefined
 
+
+
+// 1. Створюємо абстрактний клас
+abstract class BaseUser {
+    // Звичайні властивості
+    constructor(public id: string, public name: string) { }
+    // метод з реалізацією (спільний для всіх)
+    getGreeting(): string {
+        return `Привіт, я ${this.name}!`;
+    }
+    // Абстрактний метод (НЕ має тіла, обов'язковий для реалізації у нащадках)
+    abstract saveToDatabase(): void;
+}
+
+// 2. Створюємо клас-нащадок за допомогою `extends`
+class Customer extends BaseUser {
+    // Обов'язково реалізуємо абстрактний метод
+    saveToDatabase(): void {
+        console.log(`Зберігаємо клієнта ${this.name} у таблицю 'customers'`);
+    }
+}
+class Admin extends BaseUser {
+    // Адмін зберігається інакше
+    saveToDatabase(): void {
+        console.log(`Зберігаємо адміна ${this.name} у таблицю 'admins' з підвищеними правами`);
+    }
+}
+
+// const base = new BaseUser("1", "Хтось"); 
+// Cannot create an instance of an abstract class.ts(2511)
+// constructor BaseUser(id: string, name: string): BaseUser
+
+
+const customer = new Customer("c-1", "Аліса");
+console.log(customer.getGreeting()); // Працює успадкований метод: "Привіт, я Аліса!"
+customer.saveToDatabase(); // Працює власна реалізація
+
+
+// Структура результату успішного входу
+interface IAuthSession {
+    token: string;
+    expiresAt: Date;
+    userId: string;
+}
+
+// Інтерфейс для користувачів, яким потрібен додатковий захист
+interface ITwoFactorAuthenticatable {
+    secret2FA: string;
+    verify2FACode(code: string): boolean;
+}
+
+abstract class BaseAuthService {
+    // Спільний метод для всіх сервісів: хешування/перевірка пароля
+    protected verifyPassword(plain: string, hashed: string): boolean {
+        // В реальності тут буде бібліотека bcrypt або argon2
+        return plain === hashed;
+    }
+    // Спільний метод: генерація JWT токена
+    protected generateJWT(userId: string): string {
+        return `jwt-token-for-${userId}-${Date.now()}`;
+    }
+    // Абстрактний метод: кожен сервіс шукає користувача у своїй таблиці БД
+    abstract findUserByEmail(email: string): any;
+
+    public login(email: string, password: string): IAuthSession {
+        const user = this.findUserByEmail(email);
+
+        if (!user) {
+            throw new Error("Користувача не знайдено");
+        }
+        const isPasswordValid = this.verifyPassword(password, user.passwordHash);
+        if (!isPasswordValid) {
+            throw new Error("Невірний пароль");
+        }
+        // Створюємо та повертаємо сесію
+        return {
+            token: this.generateJWT(user.id),
+            expiresAt: new Date(Date.now() + 3600000), // +1 година
+            userId: user.id
+        };
+    }
+}
+
+// Сервіс для звичайних клієнтів
+class CustomerAuthService extends BaseAuthService {
+    // Реалізуємо пошук користувача конкретно в таблиці клієнтів
+    findUserByEmail(email: string) {
+        console.log(`Пошук у таблиці [Customers] за email: ${email}`);
+        // Імітація бази даних
+        if (email === "user@test.com") {
+            return { id: "cust-1", passwordHash: "123456" };
+        }
+        return null;
+    }
+}
+
+// Сервіс для адміністраторів (з підтримкою 2FA)
+class AdminAuthService extends BaseAuthService implements ITwoFactorAuthenticatable {
+    secret2FA: string = "SUPER_SECRET_KEY";
+    // Реалізуємо пошук у таблиці адміністраторів
+    findUserByEmail(email: string) {
+        console.log(`Пошук у таблиці [Admins] за email: ${email}`);
+        if (email === "admin@test.com") {
+            return { id: "admin-99", passwordHash: "admin_pass" };
+        }
+        return null;
+    }
+    // Реалізація обов'язкового методу з інтерфейсу ITwoFactorAuthenticatable
+    verify2FACode(code: string): boolean {
+        console.log(`Перевірка 2FA коду: ${code}`);
+        return code === "123456"; // спрощена перевірка
+    }
+}
+
+// 1. Спроба увійти як звичайний користувач
+const customerAuth = new CustomerAuthService();
+try {
+    const session = customerAuth.login("user@test.com", "123456");
+    console.log("Успішний вхід користувача! Токен:", session.token);
+} catch (error: any) {
+    console.error("Помилка:", error.message);
+}
+console.log("-----------------------------------------");
+
+// 2. Вхід для адміністратора
+const adminAuth = new AdminAuthService();
+try {
+    const session = adminAuth.login("admin@test.com", "admin_pass");
+    console.log("Перший етап пройдено. Перевіряємо 2FA...");
+    if (adminAuth.verify2FACode("123456")) {
+        console.log("Адміністратор успішно авторизований! Токен:", session.token);
+    } else {
+        console.log("Невірний код 2FA!");
+    }
+} catch (error: any) {
+    console.error("Помилка:", error.message);
+}
