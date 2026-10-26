@@ -5,58 +5,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TypeScript Інтернет-Магазин</title>
-    <link rel="stylesheet" href="./dist/style.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-    <!-- розмітка: #productsContainer, #orderForm, #cartContainer тощо -->
-    <!-- Бокова панель з чекбоксами -->
-    <aside class="sidebar">
-        <!-- Пошук за назвою -->
-        <div class="filter-group">
-            <h3>Пошук</h3>
-            <input type="text" id="searchInput" class="search-input" placeholder="Введіть назву...">
+    <!-- 1. Панель фільтрації та пошуку -->
+    <div class="filters-panel">
+        <input type="text" id="searchInput" placeholder="Пошук товарів...">
+        <input type="number" id="priceMin" placeholder="Мін. ціна (грн)">
+        <input type="number" id="priceMax" placeholder="Макс. ціна (грн)">
+        <select id="sortSelect">
+            <option value="default">Сортування за замовчуванням</option>
+            <option value="price-asc">Ціна: від дешевшої</option>
+            <option value="price-desc">Ціна: від дорожчої</option>
+        </select>
+        <div class="category-group">
+            <label><input type="checkbox" class="category-checkbox" value="beauty"> Краса</label>
+            <label><input type="checkbox" class="category-checkbox" value="fragrances"> Парфуми</label>
+            <label><input type="checkbox" class="category-checkbox" value="groceries"> Продукти</label>
         </div>
-        <!-- Фільтр за категоріями -->
+        <button id="clearFiltersBtn">Очистити фільтри</button>
+    </div>
+    <p>Знайдено товарів: <span id="totalProductsCount">0</span></p>
+    <!-- Головна сітка додатка -->
+    <div class="app-container">
 
-        <div class="filter-group">
-            <h3>Категорії</h3>
-            <label><input type="checkbox" value="beauty" class="category-checkbox"> Краса (beauty) <span
-                    class="count-badge" id="count-beauty">0</span></label>
-            <label><input type="checkbox" value="fragrances" class="category-checkbox"> Парфуми
-                (fragrances) <span class="count-badge" id="count-fragrances">0</span></label>
-            <label><input type="checkbox" value="groceries" class="category-checkbox"> Продукти
-                (groceries) <span class="count-badge" id="count-groceries">0</span></label>
-        </div>
-        <!-- Фільтр за ціною -->
-        <div class="filter-group">
-            <h3>Ціна (грн)</h3>
-            <div class="price-inputs">
-                <input type="number" id="priceMin" placeholder="Від" min="0">
-                <input type="number" id="priceMax" placeholder="До" min="0">
+        <!-- Ліва частина: Товари та пагінація -->
+        <main>
+            <div id="productsContainer" class="products-grid">
+                <!-- Картки товарів рендеритимуться сюди динамічно через TS -->
             </div>
-        </div>
-        <!-- Сортування -->
-        <div class="filter-group">
-            <h3>Сортування</h3>
-            <select id="sortSelect" class="sort-select">
-                <option value="default">За замовчуванням</option>
-                <option value="price-asc">Від дешевих до дорогих</option>
-                <option value="price-desc">Від дорогих до дешевих</option>
-                <option value="name-asc">За назвою (А-Я)</option>
-            </select>
-        </div>
-        <button id="clearFiltersBtn" class="clear-btn">Очистити всі фільтри</button>
-    </aside>
-    <!-- Контейнер для виведення результатів -->
-    <main class="content">
-        <h2>Товари (<span id="totalProductsCount">0</span>)</h2>
-        <div id="productsContainer" class="products-list"></div>
-        <!-- Контейнер для кнопок сторінок -->
-        <div id="paginationContainer" class="pagination"></div>
-    </main>
+
+            <div id="paginationContainer" class="pagination-container">
+                <!-- Кнопки сторінок рендеритимуться сюди -->
+            </div>
+        </main>
+        <!-- Права частина: Кошик та Оформлення замовлення -->
+        <aside>
+            <div class="cart-panel">
+                <h3>Кошик (<span id="cartBadge">0</span>)</h3>
+                <div id="cartContainer">
+                    <p>Кошик порожній</p>
+                </div>
+                <div class="cart-total-block">
+                    <span>Всього:</span>
+                    <span id="cartTotal">0 грн</span>
+                </div>
+            </div>
+            <!-- Форма замовлення -->
+            <form id="orderForm" class="order-form-panel">
+                <h3>Оформлення замовлення</h3>
+                <div class="form-group">
+                    <label for="orderName">ПІБ *</label>
+                    <input type="text" id="orderName" placeholder="Іван Іванов">
+                    <span id="nameError" class="error-text"></span>
+                </div>
+                <div class="form-group">
+                    <label for="orderPhone">Телефон *</label>
+                    <input type="text" id="orderPhone" placeholder="+380991234567">
+                    <span id="phoneError" class="error-text"></span>
+                </div>
+                <div class="form-group">
+                    <label for="orderEmail">Email *</label>
+                    <input type="email" id="orderEmail" placeholder="example@mail.com">
+                    <span id="emailError" class="error-text"></span>
+                </div>
+                <div class="form-group">
+                    <label for="orderAddress">Адреса доставки *</label>
+                    <input type="text" id="orderAddress" placeholder="м. Київ, вул. Хрещатик 1, кв. 5">
+                    <span id="addressError" class="error-text"></span>
+                </div>
+                <div class="form-group">
+                    <label for="orderPayment">Спосіб оплати</label>
+                    <select id="orderPayment">
+                        <option value="card">Карткою на сайті</option>
+                        <option value="cash">Готівкою при отриманні</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-submit-order">Підтвердити замовлення</button>
+            </form>
+        </aside>
+    </div>
     <!-- Підключаємо ЗГЕНЕРОВАНИЙ JavaScript файл -->
-    <script src="./dist/test.js" type="module"></script>
+    <script src="./dist/index.js" type="module"></script>
 </body>
 
 </html>
