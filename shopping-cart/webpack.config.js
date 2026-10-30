@@ -5,9 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); // 1. Імпортує
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
 
-  
-
-
   return {
     entry: './src/index.ts',
     mode: isProduction ? 'production' : 'development',
@@ -34,15 +31,15 @@ module.exports = (env, argv) => {
           exclude: /node_modules/,
         },
         // 2. CSS / SCSS
-        {
-          test: /\.s?[ac]ss$/i,
-           // Відокремлюємо CSS у файли в production, або вбудовуємо в JS в development
-          use: [
-            isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-            'css-loader',
-            'sass-loader',
-          ],
-        },
+        // {
+        //   test: /\.s?[ac]ss$/i,
+        //    // Відокремлюємо CSS у файли в production, або вбудовуємо в JS в development
+        //   use: [
+        //     isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+        //     'css-loader',
+        //     'sass-loader',
+        //   ],
+        // },
         // css-loader — зчитує вміст файлу style.css та перетворює його на JS-модуль.
         // style-loader — бере цей CSS і автоматично вставляє його в тег <style> всередині вашої HTML-сторінки під час запуску.
         // правило (rule) для роботи з .css файлами у секцію module.rules:

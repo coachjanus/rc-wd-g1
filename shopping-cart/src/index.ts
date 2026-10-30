@@ -1,9 +1,5 @@
-// src / index.ts(Головний файл збірки)
-// Цей файл імпортує все необхідне та запускає додаток.
-// @ts-ignore CSS is loaded by the bundler and has no TypeScript declarations.
-// підключити стилі безпосередньо в JavaScript (наприклад, у src/index.js).
-// Шлях до файлу має бути відносним:
-// Якщо style.css лежить в тій самій папці, що й index.js:
+// CSS is loaded by the bundler; TypeScript does not resolve side-effect CSS imports.
+// @ts-ignore
 import './css/style.css';
 import { Product, DummyJsonResponse, DummyJsonProduct, CheckoutFormData, CartStorageItem } from './types.js'; 
 import { StorageService } from './storage.js'; 
