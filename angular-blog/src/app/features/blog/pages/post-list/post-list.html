@@ -1,0 +1,39 @@
+<!-- <p>post-list works!</p> -->
+<!-- Angular підставить значення змінної imageUrl в атрибут src -->
+<!-- <img [src]="imageUrl" alt="Аватар користувача"> -->
+
+<div class="blog-container">
+    <header class="blog-header">
+        <h1>{{ title() }}</h1>
+        <p>{{ subtitle() }}</p>
+    </header>
+    <div class="blog-posts">
+        @for (post of posts; track post.id; let i = $index) {
+        <article class="post-card">
+
+            @if (post.imageUrl) {
+            <img [src]="post.imageUrl" [alt]="post.title" class="post-image" #myImage (error)="myImage.src = 'assets/images/placeholder.png'">
+            }
+
+            <div class="post-content">
+                <span class="post-category">{{ post.category }}</span>
+                <h2 class="post-title">{{ post.title }}</h2>
+                <p class="post-excerpt">{{ post.excerpt }}</p>
+
+                <div class="post-meta">
+                    <!-- <span class="post-date">{{ post.date | date:'longDate' }}</span> -->
+                   
+                    
+                    <span class="post-date">{{ post.date | date:'fullDate' }}</span>
+                    <button class="btn-read-more">Читати далі →</button>
+                </div>
+            </div>
+        </article>
+        }@empty {
+        <!-- Спрацює автоматично, якщо масив posts буде порожнім -->
+        <div class="empty-state">
+            <p>Наразі немає опублікованих статей. Завітайте пізніше!</p>
+        </div>
+        }
+    </div>
+</div>
