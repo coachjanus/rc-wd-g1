@@ -7,12 +7,44 @@
         <h1>{{ title() }}</h1>
         <p>{{ subtitle() }}</p>
     </header>
+    <div class="blog-actions-bar"><!-- Панель дій: Пошук та Фільтри -->
+        <!-- Поле живого пошуку -->
+        <div class="search-box">
+            <input type="text" [(ngModel)]="searchQuery" placeholder="Пошук статей за ключовими словами..."
+                class="search-input" />
+            @if (searchQuery()) {
+            <button (click)="searchQuery.set('')" class="btn-clear-search">✕</button>
+            }
+        </div>
+        <!-- Блок фільтрації за категоріями -->
+        <div class="blog-filter-bar">
+            <div class="categories-list">
+                @for (cat of categories(); track cat) {
+                <button (click)="setCategory(cat)" [class.active]="selectedCategory() === cat" class="btn-category">
+                    {{ cat }}
+                </button>
+                }
+            </div>
+            <!-- Новий блок сортування та вигляду -->
+            <div class="filter-controls-right">
+                <div class="sort-box">
+                    <label for="sortSelect">Сортувати:</label>
+                    <select id="sortSelect" [ngModel]="sortBy()" (ngModelChange)="setSortOrder($event)"
+                        class="sort-select">
+                        <option value="latest">Спочатку нові</option>
+                        <option value="oldest">Спочатку старі</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="blog-posts">
-        @for (post of posts; track post.id; let i = $index) {
+        @for (post of filteredPosts(); track post.id; let i = $index) {
         <article class="post-card">
 
             @if (post.imageUrl) {
-            <img [src]="post.imageUrl" [alt]="post.title" class="post-image" #myImage (error)="myImage.src = 'assets/images/placeholder.png'">
+            <img [src]="post.imageUrl" [alt]="post.title" class="post-image" #myImage
+                (error)="myImage.src = 'assets/images/placeholder.png'">
             }
 
             <div class="post-content">
@@ -22,8 +54,8 @@
 
                 <div class="post-meta">
                     <!-- <span class="post-date">{{ post.date | date:'longDate' }}</span> -->
-                   
-                    
+
+
                     <span class="post-date">{{ post.date | date:'fullDate' }}</span>
                     <button class="btn-read-more">Читати далі →</button>
                 </div>
@@ -32,7 +64,9 @@
         }@empty {
         <!-- Спрацює автоматично, якщо масив posts буде порожнім -->
         <div class="empty-state">
-            <p>Наразі немає опублікованих статей. Завітайте пізніше!</p>
+            <p>Нічого не знайдено за запитом <strong>"{{ searchQuery() }}"</strong> у категорії "{{
+                selectedCategory() }}".</p>
+            <p class="empty-hint">Спробуйте змінити критерії пошуку або обрати іншу категорію.</p>
         </div>
         }
     </div>
