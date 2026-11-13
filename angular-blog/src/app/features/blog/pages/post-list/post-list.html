@@ -1,12 +1,15 @@
-<!-- <p>post-list works!</p> -->
-<!-- Angular підставить значення змінної imageUrl в атрибут src -->
-<!-- <img [src]="imageUrl" alt="Аватар користувача"> -->
-
 <div class="blog-container">
     <header class="blog-header">
         <h1>{{ title() }}</h1>
         <p>{{ subtitle() }}</p>
     </header>
+    <!-- Секція фільтрації / пошуку (демо) -->
+    <div class="blog-actions">
+        <button (click)="toggleViewMode()" class="btn-toggle">
+            Змінити вигляд: {{ isGridView ? 'Список' : 'Сітка' }}
+        </button>
+    </div>
+
     <div class="blog-actions-bar"><!-- Панель дій: Пошук та Фільтри -->
         <!-- Поле живого пошуку -->
         <div class="search-box">
@@ -38,7 +41,7 @@
             </div>
         </div>
     </div>
-    <div class="blog-posts">
+    <div class="blog-posts"  [class.grid-layout]="isGridView">
         @for (post of filteredPosts(); track post.id; let i = $index) {
         <article class="post-card">
 

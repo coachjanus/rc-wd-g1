@@ -11,9 +11,10 @@ type SortOrder = 'latest' | 'oldest';
   selector: 'post-list',
   imports: [DatePipe, FormsModule],
   templateUrl: './post-list.html',
-  styleUrl: './post-list.css',
+  styleUrl: './post-list.scss',
 })
 export class PostList {
+  isGridView = true;
   protected readonly title = signal('Мій Технічний Блог');
   protected readonly subtitle = signal('Ділюся досвідом розробки на Angular та не тільки');
 
@@ -108,6 +109,10 @@ export class PostList {
   // Метод для зміни сортування
   setSortOrder(order: SortOrder): void {
     this.sortBy.set(order);
+  }
+
+  toggleViewMode(): void {
+    this.isGridView = !this.isGridView;
   }
 
 
