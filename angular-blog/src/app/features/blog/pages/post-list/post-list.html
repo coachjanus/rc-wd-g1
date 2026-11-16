@@ -43,28 +43,10 @@
     </div>
     <div class="blog-posts"  [class.grid-layout]="isGridView">
         @for (post of filteredPosts(); track post.id; let i = $index) {
-        <article class="post-card">
-
-            @if (post.imageUrl) {
-            <img [src]="post.imageUrl" [alt]="post.title" class="post-image" #myImage
-                (error)="myImage.src = 'assets/images/placeholder.png'">
-            }
-
-            <div class="post-content">
-                <span class="post-category">{{ post.category }}</span>
-                <h2 class="post-title">{{ post.title }}</h2>
-                <p class="post-excerpt">{{ post.excerpt }}</p>
-
-                <div class="post-meta">
-                    <!-- <span class="post-date">{{ post.date | date:'longDate' }}</span> -->
-
-
-                    <span class="post-date">{{ post.date | date:'fullDate' }}</span>
-                    <button class="btn-read-more">Читати далі →</button>
-                </div>
-            </div>
-        </article>
-        }@empty {
+         
+        <!-- Виклик дочірнього компонента -->
+        <app-post-card [post]="post"></app-post-card>
+    }@empty {
         <!-- Спрацює автоматично, якщо масив posts буде порожнім -->
         <div class="empty-state">
             <p>Нічого не знайдено за запитом <strong>"{{ searchQuery() }}"</strong> у категорії "{{

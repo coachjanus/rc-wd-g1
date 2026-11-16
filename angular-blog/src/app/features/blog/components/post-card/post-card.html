@@ -1,0 +1,22 @@
+<article class="post-card">
+    @if (post().imageUrl) {
+    <img [src]="post().imageUrl" [alt]="post().title" class="post-image" #myImage
+        (error)="myImage.src = 'assets/images/placeholder.png'">
+    }
+    <div class="post-content">
+        <div class="card-badges-row">
+            <span class="post-category card-tag">{{ post().category }}</span>
+            <!-- Автоматично з'явиться, якщо стаття створена за останні 7 днів -->
+            <app-article-badge type="new" [publishedDate]="post().date" />
+
+            <!-- Автоматично з'явиться, якщо стаття набрала понад 50 переглядів -->
+        </div>
+        <h2 class="post-title">{{ post().title }}</h2>
+        <p class="post-excerpt">{{ post().excerpt }}</p>
+
+        <div class="post-meta">
+            <span class="post-date">{{ post().date | date:'fullDate' }}</span>
+            <button class="btn-read-more">Читати далі →</button>
+        </div>
+    </div>
+</article>

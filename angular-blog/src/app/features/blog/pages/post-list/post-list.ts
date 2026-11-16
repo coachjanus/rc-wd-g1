@@ -1,15 +1,15 @@
 import { Component, signal, computed } from '@angular/core';
-import { Post } from '../../post';
-import { DatePipe } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Обов'язково імпортуємо для [(ngModel)]
+import { Post } from '../../core/models/post';
 
+import { FormsModule } from '@angular/forms'; // Обов'язково імпортуємо для [(ngModel)]
+import { PostCard } from '../../components/post-card/post-card'; // Імпорт дочірнього компонента
 // Тип для можливих варіантів сортування
 type SortOrder = 'latest' | 'oldest';
 
 
 @Component({
   selector: 'post-list',
-  imports: [DatePipe, FormsModule],
+  imports: [PostCard, FormsModule],
   templateUrl: './post-list.html',
   styleUrl: './post-list.scss',
 })
@@ -33,7 +33,7 @@ export class PostList {
       title: 'Як приручити View Encapsulation та :host стилі',
       excerpt: 'Повний гайд з ізоляції стилів: коли варто використовувати Emulated, а коли None чи ShadowDom.',
       category: 'CSS / Оформлення',
-      date: new Date(2026, 10, 1),
+      date: new Date(2026, 11, 1),
       imageUrl: 'assets/images/picture2.jpg',
     },
     {
@@ -57,7 +57,7 @@ export class PostList {
       title: 'Control Flow в Angular',
       excerpt: 'Розбираємося, чому блоки @if та @for назавжди змінили спосіб написання шаблонів в Angular додатках.',
       category: 'Angular',
-      date: new Date(2026, 10, 4),
+      date: new Date(2026, 11, 4),
       imageUrl: 'assets/images/picture1.jpg',
     },
   ]);

@@ -1,0 +1,102 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.post-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow:
+            0 8px 15px rgba(0,
+                0,
+                0, 0.1);
+    }
+
+    .post-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .post-content {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        flex-grow:
+            1;
+    }
+
+    .post-category {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        color: #007bff;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    .post-title {
+        font-size: 1.4rem;
+        margin:
+            0 0 12px 0;
+        color: #222;
+    }
+
+    .post-excerpt {
+        color: #555;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 20px;
+        flex-grow:
+            1;
+    }
+
+    .post-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+        margin-top: auto; // притискає мета-дані до низу картки
+
+        .post-date {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .btn-read-more {
+            background: transparent;
+            border: none;
+            color: #007bff;
+            font-weight: 600;
+            cursor: pointer;
+            padding:
+                0;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.card-badges-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.card-badges-row .card-tag {
+    margin-bottom: 0;
+}
