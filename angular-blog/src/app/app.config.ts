@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter,  withComponentInputBinding} from '@angular/router';
 
 import { routes } from './app.routes';
 
@@ -13,7 +13,10 @@ registerLocaleData(localeUk, 'uk-UA');
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),
+    provideRouter(
+      routes,
+      withComponentInputBinding() // Обов'язково для роботи id = input.required<string>()
+     ),
     // 3. Встановлюємо uk-UA локаллю за замовчуванням для всього застосунку
     { provide: LOCALE_ID, useValue: 'uk-UA' }
   ]

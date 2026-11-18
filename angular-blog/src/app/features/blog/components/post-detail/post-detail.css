@@ -1,0 +1,108 @@
+.detail-wrapper {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-bottom: 24px;
+    font-weight: 500;
+    color: var(--text, #334155);
+    text-decoration: none;
+}
+
+.back-btn:hover {
+    color: var(--primary, #2563eb);
+}
+
+.post-article {
+    background: var(--card-bg, #ffffff);
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid var(--border, #e2e8f0);
+    box-shadow:
+        0 4px 6px -1px rgba(0,
+            0,
+            0, 0.05);
+}
+
+.badge {
+    display: inline-block;
+    background: #e0f2fe;
+    color: #0369a1;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.post-header h1 {
+    font-size: 2.25rem;
+    color: var(--dark, #0f172a);
+    line-height: 1.25;
+    margin-bottom: 12px;
+}
+
+.meta-info {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.post-lead {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #475569;
+    margin-top: 24px;
+    line-height: 1.6;
+}
+
+.divider {
+    border: 0;
+    border-top: 1px solid var(--border, #e2e8f0);
+    margin: 28px 0;
+}
+
+.post-body {
+    font-size: 1.125rem;
+    color: #1e293b;
+    line-height: 1.8;
+    white-space: pre-line;
+    /* Зберігає перенесення рядків із JSON чи бази даних */
+}
+
+.status-box {
+    text-align: center;
+    padding: 60px 20px;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+}
+
+.status-box.error h2,
+.status-box.not-found h2 {
+    color: #ef4444;
+    margin-bottom: 10px;
+}
+
+.primary-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 24px;
+    background: var(--primary, #2563eb);
+    color: #ffffff;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+@media (max-width: 640px) {
+    .post-article {
+        padding: 24px;
+    }
+
+    .post-header h1 {
+        font-size: 1.75rem;
+    }
+}

@@ -16,7 +16,7 @@
 
         <div class="post-meta">
             <span class="post-date">{{ post().date | date:'fullDate' }}</span>
-            <button class="btn-read-more">Читати далі →</button>
+            <a [href]="'/post/' + post().id" class="btn-read-more">Читати далі</a>
         </div>
     </div>
 </article>

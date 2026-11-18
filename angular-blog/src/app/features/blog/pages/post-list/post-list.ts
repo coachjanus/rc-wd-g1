@@ -1,9 +1,11 @@
-import { Component, signal, computed } from '@angular/core';
-import { Post } from '../../core/models/post';
+import { Component, signal, computed, inject } from '@angular/core';
+// import { Post } from '../../core/models/post';
 
 import { FormsModule } from '@angular/forms'; // Обов'язково імпортуємо для [(ngModel)]
 import { PostCard } from '../../components/post-card/post-card'; // Імпорт дочірнього компонента
 // Тип для можливих варіантів сортування
+
+import { BlogService } from '../../core/services/blog.service'; // Імпорт сервісу для отримання даних
 type SortOrder = 'latest' | 'oldest';
 
 
@@ -14,53 +16,15 @@ type SortOrder = 'latest' | 'oldest';
   styleUrl: './post-list.scss',
 })
 export class PostList {
+  private readonly blogService = inject(BlogService);
+
   isGridView = true;
+
+  readonly allPosts = this.blogService.getPosts();
   protected readonly title = signal('Мій Технічний Блог');
   protected readonly subtitle = signal('Ділюся досвідом розробки на Angular та не тільки');
 
-  // Початковий масив статей (загорнутий у Сигнал)
-  readonly allPosts = signal<Post[]>([
-    {
-      id: 1,
-      title: 'Знайомство з новим Control Flow в Angular',
-      excerpt: 'Розбираємося, чому блоки @if та @for назавжди змінили спосіб написання шаблонів в Angular додатках.',
-      category: 'Angular',
-      date: new Date(2026, 10, 5),
-      imageUrl: 'assets/images/picture1.jpg',
-    },
-    {
-      id: 2,
-      title: 'Як приручити View Encapsulation та :host стилі',
-      excerpt: 'Повний гайд з ізоляції стилів: коли варто використовувати Emulated, а коли None чи ShadowDom.',
-      category: 'CSS / Оформлення',
-      date: new Date(2026, 11, 1),
-      imageUrl: 'assets/images/picture2.jpg',
-    },
-    {
-      id: 3,
-      title: 'Оптимізація швидкодії веб-додатків у 2027 році',
-      excerpt: 'Корисні поради та практичні кейси для зменшення розміру бандлу та покращення Core Web Vitals.',
-      category: 'Performance',
-      date: new Date(2026, 9, 28),
-      imageUrl: 'https://picsum.photos1/200',
-    },
-    {
-      id: 4,
-      title: 'Автоматично згенерований список унікальних категорій',
-      excerpt: 'Повний гайд з ізоляції стилів: коли варто використовувати Emulated, а коли None чи ShadowDom.',
-      category: 'Performance',
-      date: new Date(2026, 10, 12),
-      imageUrl: 'assets/images/picture.jpg',
-    },
-    {
-      id: 5,
-      title: 'Control Flow в Angular',
-      excerpt: 'Розбираємося, чому блоки @if та @for назавжди змінили спосіб написання шаблонів в Angular додатках.',
-      category: 'Angular',
-      date: new Date(2026, 11, 4),
-      imageUrl: 'assets/images/picture1.jpg',
-    },
-  ]);
+  
 
   // Сигнал для збереження поточної обраної категорії ('Всі' за замовчуванням)
   readonly selectedCategory = signal<string>('Всі');

@@ -1,0 +1,48 @@
+<div class="detail-wrapper">
+    <a routerLink="/" class="back-btn">
+        ← Повернутися до списку дописів
+    </a>
+    @if (loading()) {
+    <div class="status-box">
+        <p>Завантаження допису...</p>
+    </div>
+    } @else if (error()) {
+    <div class="status-box error">
+        <h2>Помилка завантаження</h2>
+        <p>Не вдалося отримати дані із сервера. Спробуйте оновити сторінку.</p>
+    </div>
+    }@else if (post(); as currentPost) {
+    <article class="post-article">
+        <header class="post-header">
+            <span class="badge">Стаття</span>
+            <h1>{{ currentPost.title }}</h1>
+            <div class="meta-info">
+                <span>Опубліковано: {{ currentPost.date | date:'dd MMMM yyyy' }}</span>
+            </div>
+        </header>
+        <div class="post-lead">
+            {{ currentPost.excerpt }}
+        </div>
+        <hr class="divider" />
+        <div class="post-body">
+            {{ currentPost.content }}
+        </div>
+    </article>
+    }@else if (post(); as currentPost) {
+    <article class="post-article">
+        <header class="post-header">
+            <span class="badge">Стаття</span>
+            <h1>{{ currentPost.title }}</h1>
+            <div class="meta-info">
+                <span>Опубліковано: {{ currentPost.date | date:'dd MMMM yyyy' }}</span>
+            </div>
+        </header>
+        <div class="post-lead">
+            {{ currentPost.excerpt }}
+        </div>
+        <hr class="divider" />
+        <div class="post-body">
+            {{ currentPost.content }}
+        </div>
+    </article>
+    }
