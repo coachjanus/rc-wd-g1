@@ -28,21 +28,7 @@
             {{ currentPost.content }}
         </div>
     </article>
-    }@else if (post(); as currentPost) {
-    <article class="post-article">
-        <header class="post-header">
-            <span class="badge">Стаття</span>
-            <h1>{{ currentPost.title }}</h1>
-            <div class="meta-info">
-                <span>Опубліковано: {{ currentPost.date | date:'dd MMMM yyyy' }}</span>
-            </div>
-        </header>
-        <div class="post-lead">
-            {{ currentPost.excerpt }}
-        </div>
-        <hr class="divider" />
-        <div class="post-body">
-            {{ currentPost.content }}
-        </div>
-    </article>
+    <app-comments [postId]="currentPost.id.toString()"></app-comments>
     }
+    
+    

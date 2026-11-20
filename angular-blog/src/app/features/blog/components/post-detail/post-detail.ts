@@ -5,11 +5,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { switchMap, of } from 'rxjs';
 import { Post } from '../../core/models/post';
 import { BlogService } from '../../core/services/blog.service';
-
+import { Comments } from '../comments/comments';
 
 @Component({
   selector: 'app-post-detail',
-  imports: [DatePipe, RouterModule],
+  imports: [DatePipe, RouterModule, Comments],
   templateUrl: './post-detail.html',
   styleUrl: './post-detail.css',
 })

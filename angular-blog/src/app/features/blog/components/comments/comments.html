@@ -1,0 +1,31 @@
+<section class="comments-section">
+    <h3>Коментарі ({{ comments().length }})</h3>
+    <!-- Форма додавання коментаря -->
+    <form (ngSubmit)="addComment()" class="comment-form">
+        <div class="form-group">
+            <input type="text" [(ngModel)]="authorName" name="author" placeholder="Ваше ім'я" required
+                class="form-input" />
+        </div>
+        <div class="form-group">
+            <textarea [(ngModel)]="commentText
+" name="text" rows="3" placeholder="Напишіть ваш коментар..." required class="form-textarea"></textarea>
+        </div>
+        <button type="submit" [disabled]="!authorName().trim() || !commentText().trim()
+" class="submit-btn"> Опублікувати коментар</button>
+    </form>
+
+    <!-- Список коментарів -->
+    <div class="comments-list">
+        @for (comment of comments(); track comment.id) {
+        <div class="comment-card">
+            <div class="comment-header">
+                <span class="comment-author">{{ comment.author }}</span>
+                <span class="comment-date">{{ comment.createdAt | date:'dd.MM.yyyy HH:mm' }}</span>
+            </div>
+            <p class="comment-body">{{ comment.text }}</p>
+        </div>
+        } @empty {
+        <p class="empty-comments">Поки що немає коментарів. Будьте першим!</p>
+        }
+    </div>
+</section>
