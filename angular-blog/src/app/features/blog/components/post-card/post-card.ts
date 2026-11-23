@@ -5,14 +5,16 @@ import { Post } from '../../core/models/post';
 import { DatePipe } from '@angular/common';
 import { ArticleBadge } from '../article-badge/article-badge';
 
+import { Selected } from '../../../../shared/directives/selected';
+
 @Component({
   selector: 'app-post-card',
-  imports: [DatePipe, ArticleBadge],
+  imports: [DatePipe, ArticleBadge, Selected],
   templateUrl: './post-card.html',
   styleUrl: './post-card.scss',
 })
 export class PostCard {
-
+  color = "blue";
   // 1. Обов'язковий параметр (гарантує, що батьківський компонент передасть значення)
   // title = input.required<string>();
   // 2. Необов'язковий параметр зі значенням за замовчуванням

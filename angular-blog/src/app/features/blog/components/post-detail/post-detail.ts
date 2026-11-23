@@ -6,10 +6,12 @@ import { switchMap, of } from 'rxjs';
 import { Post } from '../../core/models/post';
 import { BlogService } from '../../core/services/blog.service';
 import { Comments } from '../comments/comments';
+import { HoveredDirective } from '../../../../shared/directives/hovered.directive'; // Імпорт директиви
+
 
 @Component({
   selector: 'app-post-detail',
-  imports: [DatePipe, RouterModule, Comments],
+  imports: [DatePipe, RouterModule, Comments, HoveredDirective],
   templateUrl: './post-detail.html',
   styleUrl: './post-detail.css',
 })

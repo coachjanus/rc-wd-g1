@@ -1,10 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet, ActivatedRoute } from '@angular/router';
-// import { PostList } from './features/blog/pages/post-list/post-list';
+import { Highlight } from './shared/directives/highlight';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Highlight],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

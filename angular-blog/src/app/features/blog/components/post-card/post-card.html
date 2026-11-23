@@ -12,7 +12,7 @@
             <!-- Автоматично з'явиться, якщо стаття набрала понад 50 переглядів -->
         </div>
         <h2 class="post-title">{{ post().title }}</h2>
-        <p class="post-excerpt">{{ post().excerpt }}</p>
+        <p class="post-excerpt"  [appSelected]="color"  defaultColor="violet">{{ post().excerpt }}</p>
 
         <div class="post-meta">
             <span class="post-date">{{ post().date | date:'fullDate' }}</span>
