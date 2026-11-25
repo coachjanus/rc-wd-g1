@@ -2,14 +2,18 @@ import { Component, input } from '@angular/core';
 import { Post } from '../../core/models/post';
 
 // Для форматування дати ми перенесемо DatePipe сюди.
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe, SlicePipe, TitleCasePipe } from '@angular/common';
 import { ArticleBadge } from '../article-badge/article-badge';
 
 import { Selected } from '../../../../shared/directives/selected';
 
+import { ReadingTimePipe } from '../../../../shared/pipes/reading-time-pipe';
+import { TimeAgoPipe } from "../../../../shared/pipes/time-ago-pipe";
+
+import { TruncatePipe } from '../../../../shared/pipes/truncate-pipe';
 @Component({
   selector: 'app-post-card',
-  imports: [DatePipe, ArticleBadge, Selected],
+  imports: [DatePipe, ArticleBadge, Selected, DecimalPipe, SlicePipe, TitleCasePipe, ReadingTimePipe, TimeAgoPipe, TruncatePipe],
   templateUrl: './post-card.html',
   styleUrl: './post-card.scss',
 })

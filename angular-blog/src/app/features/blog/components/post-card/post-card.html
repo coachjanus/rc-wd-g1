@@ -12,11 +12,20 @@
             <!-- Автоматично з'явиться, якщо стаття набрала понад 50 переглядів -->
         </div>
         <h2 class="post-title">{{ post().title }}</h2>
-        <p class="post-excerpt"  [appSelected]="color"  defaultColor="violet">{{ post().excerpt }}</p>
+        <p class="post-excerpt"  [appSelected]="color"  defaultColor="violet">{{ post().excerpt | slice:0:120 }}</p>
+        <p class="post-excerpt"  [appSelected]="color"  defaultColor="violet">{{ post().excerpt | truncate }}</p>
 
-        <div class="post-meta">
-            <span class="post-date">{{ post().date | date:'fullDate' }}</span>
-            <a [href]="'/post/' + post().id" class="btn-read-more">Читати далі</a>
+        <div class="post-meta"><!-- DatePipe (локалізований) + TitleCasePipe для автора -->
+            <p style="color: #555; font-size: 0.9rem;">
+            Автор: <strong>{{ post().author | titlecase }}</strong> •
+            <span class="post-date">{{ post().date | date:'d MMMM y' | titlecase}}</span> • <span class="post-date">{{ post().date |  timeAgo }}</span> •
+            {{ post().content | readingTime }}
+            </p>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <a [href]="'/post/' + post().id"  class="btn-read-more">Читати далі...</a>
+                <!-- DecimalPipe: форматує числа з пробілами між тисячами (наприклад, 1 420) -->
+                <span> {{ post().likesCount | number:'1.0-0' }}</span>
+            </div>
         </div>
     </div>
 </article>

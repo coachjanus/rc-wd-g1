@@ -5,6 +5,8 @@ export interface Post {
  excerpt: string;
  category: string;
  content: string;
+ author: string;
  date: Date;
  imageUrl?: string;
+ likesCount: number;
 }
