@@ -1,58 +1,48 @@
+<!-- src/app/features/blog/pages/post-list/post-list.html -->
 <div class="blog-container">
-    <header class="blog-header">
-        <h1>{{ title() }}</h1>
-        <p>{{ subtitle() }}</p>
-    </header>
-    <!-- Секція фільтрації / пошуку (демо) -->
-    <div class="blog-actions">
-        <button (click)="toggleViewMode()" class="btn-toggle">
-            Змінити вигляд: {{ isGridView ? 'Список' : 'Сітка' }}
+  <header class="blog-header">
+    <h1>Мій Технічний Блог</h1>
+    <p>Ділюся досвідом розробки на Angular та не тільки</p>
+    <h2>Останні дописи блогу</h2>
+        <!-- Блокуємо кнопку під час завантаження -->
+        <button 
+          (click)="blogService.loadPosts()" 
+          [disabled]="blogService.isLoading()">
+          {{ blogService.isLoading() ? 'Оновлення...' : 'Оновити' }}
         </button>
-    </div>
+  </header>
+  
+      <!-- Стан 1: Йде завантаження -->
+      @if (blogService.isLoading()) {
+        <div class="loader">Завантаження дописів...</div>
+      } 
+      <!-- Стан 2: Виникла помилка -->
+      @else if (blogService.error()) {
+        <div class="error">{{ blogService.error() }}</div>
+      } 
+       <!-- Стан 3: Успішне відображення -->
+      @else {
+        <!-- Замінюємо громіздку розмітку фільтрів на один чистий тег -->
+        <app-blog-filter
+            [categories]="categories()"
+            [(searchQuery)]="searchQuery"
+            [(selectedCategory)]="selectedCategory"
+            [(sortBy)]="sortBy"
+            [(isGridView)]="isGridView">
+        </app-blog-filter>
+        <div class="blog-posts"  [class.grid-layout]="isGridView()">
+          @for (post of filteredPosts(); track post.id) {
+            <!-- Виклик дочірнього компонента -->
+            <app-post-card [post]="post"></app-post-card>
+            
+          } 
+          @empty {
+            <!-- Гарне сповіщення, якщо нічого не знайдено -->
+            <div class="empty-state">
+              <p>Нічого не знайдено за запитом <strong>"{{ searchQuery() }}"</strong> у категорії "{{ selectedCategory() }}".</p>
+              <p class="empty-hint">Спробуйте змінити критерії пошуку або обрати іншу категорію.</p>
+            </div>
+          }
+      </div>
+    }
 
-    <div class="blog-actions-bar"><!-- Панель дій: Пошук та Фільтри -->
-        <!-- Поле живого пошуку -->
-        <div class="search-box">
-            <input type="text" [(ngModel)]="searchQuery" placeholder="Пошук статей за ключовими словами..."
-                class="search-input" />
-            @if (searchQuery()) {
-            <button (click)="searchQuery.set('')" class="btn-clear-search">✕</button>
-            }
-        </div>
-        <!-- Блок фільтрації за категоріями -->
-        <div class="blog-filter-bar">
-            <div class="categories-list">
-                @for (cat of categories(); track cat) {
-                <button (click)="setCategory(cat)" [class.active]="selectedCategory() === cat" class="btn-category">
-                    {{ cat }}
-                </button>
-                }
-            </div>
-            <!-- Новий блок сортування та вигляду -->
-            <div class="filter-controls-right">
-                <div class="sort-box">
-                    <label for="sortSelect">Сортувати:</label>
-                    <select id="sortSelect" [ngModel]="sortBy()" (ngModelChange)="setSortOrder($event)"
-                        class="sort-select">
-                        <option value="latest">Спочатку нові</option>
-                        <option value="oldest">Спочатку старі</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="blog-posts"  [class.grid-layout]="isGridView">
-        @for (post of filteredPosts(); track post.id; let i = $index) {
-         
-        <!-- Виклик дочірнього компонента -->
-        <app-post-card [post]="post"></app-post-card>
-    }@empty {
-        <!-- Спрацює автоматично, якщо масив posts буде порожнім -->
-        <div class="empty-state">
-            <p>Нічого не знайдено за запитом <strong>"{{ searchQuery() }}"</strong> у категорії "{{
-                selectedCategory() }}".</p>
-            <p class="empty-hint">Спробуйте змінити критерії пошуку або обрати іншу категорію.</p>
-        </div>
-        }
-    </div>
-</div>

@@ -1,0 +1,34 @@
+<div class="blog-actions-bar">
+    <!-- Поле живого пошуку -->
+    <div class="search-box">
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Пошук статей за ключовими словами..."
+            class="search-input" />
+        @if (searchQuery()) {
+        <button (click)="clearSearch()" class="btn-clear-search">✕</button>
+        }
+    </div>
+
+    <!-- Панель фільтрів, сортування та вигляду -->
+    <div class="blog-filter-bar">
+        <div class="categories-list">
+            @for (cat of categories(); track cat) {
+            <button (click)="setCategory(cat)" [class.active]="selectedCategory() === cat" class="btn-category">
+                {{ cat }}
+            </button>
+            }
+        </div>
+
+        <div class="filter-controls-right">
+            <div class="sort-box">
+                <label for="sortSelect">Сортувати:</label>
+                <select id="sortSelect" [(ngModel)]="sortBy" class="sort-select">
+                    <option value="latest">Спочатку нові</option>
+                    <option value="oldest">Спочатку старі</option>
+                </select>
+            </div>
+            <button (click)="toggleViewMode()" class="btn-toggle">
+                {{ isGridView() ? 'Список' : 'Сітка' }}
+            </button>
+        </div>
+    </div>
+</div>

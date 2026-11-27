@@ -1,60 +1,74 @@
-import { Component, signal, computed, inject } from '@angular/core';
-// import { Post } from '../../core/models/post';
+// src/app/features/blog/pages/post-list/post-list.ts
+import { Component, computed, inject, signal, effect   } from '@angular/core';
 
 import { FormsModule } from '@angular/forms'; // Обов'язково імпортуємо для [(ngModel)]
 import { PostCard } from '../../components/post-card/post-card'; // Імпорт дочірнього компонента
-// Тип для можливих варіантів сортування
+import { BlogService } from '../../../../core/services/blog'; // Імпорт сервісу для отримання даних
 
-import { BlogService } from '../../core/services/blog.service'; // Імпорт сервісу для отримання даних
-type SortOrder = 'latest' | 'oldest';
+import { BlogFilter, SortOrder } from '../../components/blog-filter/blog-filter';
 
 
 @Component({
   selector: 'post-list',
-  imports: [PostCard, FormsModule],
+  imports: [FormsModule, PostCard, BlogFilter], // Додали FormsModule та PostCard
   templateUrl: './post-list.html',
   styleUrl: './post-list.scss',
 })
+
+
 export class PostList {
-  private readonly blogService = inject(BlogService);
 
-  isGridView = true;
+  // 1. Інжектуємо наш сервіс за допомогою сучасної функції inject()
+  readonly blogService = inject(BlogService);
+  // 2. Прокидаємо сигнал завантаження в шаблон
+  readonly isLoading = this.blogService.isLoading;
 
-  readonly allPosts = this.blogService.getPosts();
-  protected readonly title = signal('Мій Технічний Блог');
-  protected readonly subtitle = signal('Ділюся досвідом розробки на Angular та не тільки');
-
-  
-
-  // Сигнал для збереження поточної обраної категорії ('Всі' за замовчуванням)
+  // Усі стани фільтрації тепер є сигналами
+  readonly isGridView = signal<boolean>(true);
   readonly selectedCategory = signal<string>('Всі');
-
-  // Новий сигнал для збереження пошукового запиту
   readonly searchQuery = signal<string>('');
-
-  // Новий сигнал для збереження типу сортування (за замовчуванням: спочатку нові)
   readonly sortBy = signal<SortOrder>('latest');
+  readonly itemsToShow = signal<number>(2);
 
-  // Автоматично згенерований список унікальних категорій для кнопок-фільтрів
+  // isGridView = true;
+  parentCount = signal(10); // Початкове значення
+
+  constructor() {
+    // Ефект автоматично скидає пагінацію при зміні пошуку чи категорії
+    effect(() => {
+      this.searchQuery();
+      this.selectedCategory();
+      this.itemsToShow.set(2);
+    }, { allowSignalWrites: true });
+  }
+
+ 
   readonly categories = computed(() => {
-    const unique = new Set(this.allPosts().map(post => post.category));
+    const unique = new Set(this.blogService.posts().map(post => post.category));
     return ['Всі', ...Array.from(unique)];
   });
-  // Обчислюваний (computed) сигнал для відфільтрованих статей
+
+
   readonly filteredPosts = computed(() => {
-    let posts = this.allPosts();
+    // let posts = this.allPosts();
+    let posts = this.blogService.posts();
+
+    
+    // Фільтрація за категорією
     const activeCategory = this.selectedCategory();
     if (activeCategory !== 'Всі') {
       posts = posts.filter(post => post.category === activeCategory);
     }
-    // Фільтрація за текстом (пошук)
+    
+    // Фільтрація за текстом
     const query = this.searchQuery().toLowerCase().trim();
     if (query) {
-      posts = posts.filter(post =>
-        post.title.toLowerCase().includes(query) ||
+      posts = posts.filter(post => 
+        post.title.toLowerCase().includes(query) || 
         post.excerpt.toLowerCase().includes(query)
       );
     }
+    
     // Сортування за датою (.slice() потрібен, щоб не мутувати оригінальний сигнал)
     const order = this.sortBy();
     return posts.slice().sort((a, b) => {
@@ -62,22 +76,12 @@ export class PostList {
       const timeB = b.date.getTime();
       return order === 'latest' ? timeB - timeA : timeA - timeB;
     });
-    // return posts;
   });
 
-  // Метод для зміни фільтра
-  setCategory(category: string): void {
-    this.selectedCategory.set(category);
-  }
 
-  // Метод для зміни сортування
-  setSortOrder(order: SortOrder): void {
-    this.sortBy.set(order);
+  // 5. Ініціюємо завантаження даних при старті компонента
+  ngOnInit(): void {
+    this.blogService.loadPosts();
   }
-
-  toggleViewMode(): void {
-    this.isGridView = !this.isGridView;
-  }
-
 
 }

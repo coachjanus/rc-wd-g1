@@ -1,0 +1,103 @@
+:host {
+    display: block;
+    margin-bottom: 30px;
+}
+
+.blog-actions-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.search-box {
+    position: relative;
+    width: 100%;
+
+    .search-input {
+        width: 100%;
+        padding: 14px 45px 14px 20px;
+        font-size: 1rem;
+        border: 1px solid var(--border-color, #ced4da);
+        border-radius: 8px;
+        background-color: var(--card-bg, white);
+        color: var(--text-color, #333);
+        box-sizing: border-box;
+
+        &:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+    }
+
+    .btn-clear-search {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: transparent;
+        border: none;
+        color: var(--text-muted, #6c757d);
+        cursor: pointer;
+    }
+}
+
+.blog-filter-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    background: var(--card-bg, white);
+    padding: 15px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color, #eee);
+}
+
+.categories-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    .btn-category {
+        background-color: #e9ecef;
+        color: #495057;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+
+        &.active {
+            background-color: #007bff;
+            color: white;
+        }
+    }
+}
+
+.filter-controls-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.sort-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .sort-select {
+        padding: 8px 12px;
+        border: 1px solid var(--border-color, #ced4da);
+        border-radius: 6px;
+        background-color: var(--card-bg, #fff);
+        color: var(--text-color, #495057);
+    }
+}
+
+.btn-toggle {
+    background-color: transparent;
+    color: #007bff;
+    border: 1px solid #007bff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
